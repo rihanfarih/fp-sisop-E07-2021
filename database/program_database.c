@@ -12,12 +12,21 @@
 
 #define PORT 8080
 
+char folder[]= "Databse";
+
 typedef struct {
     unsigned int key;
     char fname[100];
     char lname[100];
     unsigned int age;
 } person_rec;
+
+struct user
+{
+    char id[1000];
+    char pw[1000];
+}user;
+
 
 int open_record(char *filename){
     int fd;
@@ -123,6 +132,60 @@ int socket_cb(int argc, char const *argv[]) {
     printf("Hello message sent\n");
     return 0;
 }
+
+void create_file(char namefile[], char str[], char mode[]){
+    FILE* file = fopen(namefile, mode);
+    fprintf(file, "%s/%s", str);
+    //print("%s", str);
+    fclose(file);
+}
+
+char* create_database (char str[]){
+    char* pointer;
+    char pesan[2048];
+
+    //name
+    char buatdb[2048];
+    bzero(buatdb, 2048);
+
+    //parsing
+    int a;
+    char parsing[2048];
+    strcpy(parsing, pointer);
+
+    char* operasi = parsing;
+    char* token;
+
+    //buat database nama;
+    for (a = 0; token = strtok_r(operasi, " ", &operasi); a++){
+        if (a==2){
+        strncpy(buatdb, token, strlen(token)-1);
+        //printf("%s", buatdb);
+        }
+
+    }
+    
+    char pathdb[2048];
+    sprintf(pathdb, "%s/%s", folder, buatdb);
+    char* dbpathptr = pathdb;
+
+    if (mkdir(dbpathptr, 0777)!=0)
+    {
+        strcpy(pesan, "Cannot Create database!");
+        pointer = pesan;
+        return pointer;
+    }
+
+    char izinfile[2048];
+    strcpy(izinfile, pathdb);
+    strcat(izinfile, "/granteduser.txt");
+
+    create_file(izinfile, user.id, "a");
+    strcpy(pesan, "Database Successfully Created!");
+    pointer = pesan;
+    return pointer;
+}
+
 
 int main(int argc, char *argv[]){
     int fd;
