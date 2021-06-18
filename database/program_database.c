@@ -169,13 +169,11 @@ char* create_database (char str[]){
     sprintf(pathdb, "%s/%s", folder, buatdb);
     char* dbpathptr = pathdb;
 
-    if (mkdir(dbpathptr, 0777)!=0)
-    {
+    if (mkdir(dbpathptr, 0777)!=0){
         strcpy(pesan, "Cannot Create database!");
         pointer = pesan;
         return pointer;
     }
-
     char izinfile[2048];
     strcpy(izinfile, pathdb);
     strcat(izinfile, "/granteduser.txt");
