@@ -7,6 +7,8 @@
 #include <sys/socket.h>
 #include <stdlib.h>
 #include <netinet/in.h>
+#include <errno.h>
+#include <syslog.h>
 
 #define PORT 8080
 
